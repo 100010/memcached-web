@@ -1,16 +1,13 @@
 package client
 
 import (
-  "fmt"
   "net/http"
+  "github.com/100010/memcached-web/src/handlers"
+  "github.com/100010/memcached-web/src/mem"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprintf(w, "Hello, World")
-}
-
-var port string
 func ServerInit() {
-    http.HandleFunc("/", handler)
+    http.HandleFunc("/", handlers.Index)
     http.ListenAndServe(":8081", nil)
+    mem.Cache.GetMulti()
 }

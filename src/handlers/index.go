@@ -10,5 +10,11 @@ var tpl *template.Template
 
 func Index(w http.ResponseWriter, r *http.Request) {
     wd, _ := os.Getwd()
-    tpl = template.Must(template.ParseFiles(wd + "/src/template/index.html"))
+    t, err := template.ParseFiles(wd + "/src/template/index.html")
+    if err != nil {
+        panic(err.Error())
+    }
+    if err := t.Execute(w, nil); err != nil {
+		panic(err.Error())
+	}
 }
